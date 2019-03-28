@@ -1,0 +1,103 @@
+#include <bits/stdc++.h>
+using namespace std;
+class tree{
+public:
+    int data;
+    int horizontalDistance;
+    tree* left;
+    tree* right;
+    tree(int d){
+        data = d;
+    }
+};
+tree* buildLevelOrder(long long int *a,long long int i, long long int n){
+    if(a[i]==-1 ){
+        return NULL;
+    }
+    tree* root = new tree(a[i]);
+    if(2*i +1 < n){
+        root->left = buildLevelOrder(a,2*i+1,n);
+    }
+    if(2*i+2 < n){
+        root->right = buildLevelOrder(a,2*i+2,n);
+    }
+    return root;
+}
+void bfs(tree* root){
+    if(root==NULL){
+        return;
+    }
+    queue<tree *> q;
+    q.push(root);
+    q.push(NULL);
+    while(!q.empty()){
+        tree *temp = q.front();
+        if(temp==NULL){
+            cout<<endl;
+            q.pop();
+            if(!q.empty()){
+                q.push(NULL);
+            }
+        }else{
+        cout<<temp->data<<" ";
+        q.pop();
+        if(temp->left){
+            q.push(temp->left);
+        }
+        if(temp->right){
+            q.push(temp->right);
+        }
+        }
+    }
+}
+void vop(tree* root, map<int,vector<int>> &m, int d=0){
+    if(root == NULL){
+        return;
+    }
+    m[d].push_back(root->data);
+    vop(root->left, m, d-1);
+    vop(root->right, m, d+1);
+}
+tree* buildtree(){
+	int d;
+	cin>>d;
+	tree*root=new tree(d);
+	queue<tree*> q;
+	q.push(root);
+	while(!q.empty()){
+	tree*f=q.front();
+	q.pop();
+	int c1,c2;
+	cin>>c1>>c2;
+	if(c1!=-1){
+	f->left=new tree(c1);
+	q.push(f->left);
+	}
+	if(c2!=-1){
+	f->right=new tree(c2);
+	q.push(f->right);
+	}
+	}
+	return root;
+}
+int main() {
+     long long int a[10000000];
+    int x;
+    long long int i=0;
+    int p;
+    cin>>p;
+  
+    map<int,vector<int>> m;
+    tree *root = buildtree();
+    //bfs(root);
+    vop(root, m);
+
+    for(auto i= m.begin(); i!=m.end();i++){
+      // cout<<i->first<<" ";
+        for(int j=0;j<i->second.size(); j++){
+            cout<<i->second[j]<<" ";
+        }
+        cout<<endl;
+    }
+
+}

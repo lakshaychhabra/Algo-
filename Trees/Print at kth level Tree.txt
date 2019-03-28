@@ -1,0 +1,56 @@
+#include <iostream>
+using namespace std;
+class tree{
+public:
+    int data;
+    tree* left;
+    tree* right;
+    tree(int d){
+        data = d;
+    }
+};
+
+tree* insert(){
+    int n,num;
+    cin>>n;
+    tree* root = new tree(n);
+    cin>>num;
+    if(num==2){
+        root->left = insert();
+        root->right = insert();
+    }else if(num==1){
+        root->left = insert();
+    }
+    return root;
+   
+}
+int sum = 0;
+void printKthLevel(tree* root, int k){
+    if(root == NULL){
+        return;
+    }
+    if(k==0){
+        sum+=root->data;
+        return;
+    }
+    printKthLevel(root->left, k-1);
+    printKthLevel(root->right, k-1);
+    return;
+}
+void print(tree* root){
+    if(root==NULL){
+        return;
+    }
+    cout<<root->data<<" ";
+    print(root->left);
+    print(root->right);
+    
+}
+
+int main() {
+    tree *root = insert();
+    int level;
+    cin>>level;
+    printKthLevel(root,level);
+    cout<<sum;
+}

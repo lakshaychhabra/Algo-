@@ -1,0 +1,32 @@
+#include <iostream>
+#include<queue>
+#define ll long long int
+using namespace std;
+
+int main() {
+    ll queries, k;
+    cin>>queries>>k;
+    priority_queue<ll> pq;
+    while(queries--){
+        ll val,x,y;
+        cin>>val; 
+        if(val == 1){
+            cin>>x>>y;
+            ll area = x*x + y*y;
+            if(pq.size() < k){
+                pq.push(area);
+            }
+            else if(area<pq.top()){
+                pq.push(area);
+                 pq.pop();
+            }
+            
+        }
+        if(val == 2){
+            ll ans = pq.top();
+            cout<<ans<<" ";
+            cout<<"\n";
+        }
+    }
+    
+}

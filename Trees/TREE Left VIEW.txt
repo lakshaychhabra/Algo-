@@ -1,0 +1,107 @@
+#include <bits/stdc++.h>
+using namespace std;
+class tree{
+public:
+    int data;
+    int horizontalDistance;
+    tree* left;
+    tree* right;
+    tree(int d){
+        data = d;
+    }
+};
+tree* buildLevelOrder(long long int *a,long long int i, long long int n){
+    if(a[i]==-1 || 2*i > n){
+        return NULL;
+    }
+    tree* root = new tree(a[i]);
+    if(2*i +1 <= n){
+        root->left = buildLevelOrder(a,2*i+1,n);
+    }
+    if(2*i+2 <= n){
+        root->right = buildLevelOrder(a,2*i+2,n);
+    }
+    return root;
+}
+
+void leftViewTree(tree* root,int level,int maxLevel){
+    if(root == NULL){
+        return;
+    }
+    static int max = maxLevel;
+    if(max < level){
+        cout<<root->data<<" ";
+        max = level;
+    }
+    leftViewTree(root->left, level+1, max);
+     leftViewTree(root->right, level+1, max);
+
+}
+void leftView(tree* root){
+    int maxLevel = 0;
+    leftViewTree(root,1,maxLevel);
+}
+void bfs(tree* root){
+    if(root==NULL){
+        return;
+    }
+    queue<tree *> q;
+    q.push(root);
+    q.push(NULL);
+    while(!q.empty()){
+        tree *temp = q.front();
+        if(temp==NULL){
+            cout<<endl;
+            q.pop();
+            if(!q.empty()){
+                q.push(NULL);
+            }
+           
+        }else{
+        cout<<temp->data<<" ";
+        q.pop();
+        if(temp->left){
+            q.push(temp->left);
+        }
+        if(temp->right){
+            q.push(temp->right);
+        }
+        }
+    }
+}
+tree* buildtree(){
+	int d;
+	cin>>d;
+	tree*root=new tree(d);
+	queue<tree*> q;
+	q.push(root);
+	while(!q.empty()){
+	tree*f=q.front();
+	q.pop();
+	int c1,c2;
+	cin>>c1>>c2;
+	if(c1!=-1){
+	f->left=new tree(c1);
+	q.push(f->left);
+	}
+	if(c2!=-1){
+	f->right=new tree(c2);
+	q.push(f->right);
+	}
+	}
+	return root;
+}
+int main() {
+    long long int a[10000000];
+    int x;
+    // long long int i=0;
+    // while(scanf("%d",&x)!=EOF){
+    //     a[i] = x;
+    //     i++;
+    // }
+    tree *root = buildtree();//buildLevelOrder(a,0,i+1);
+    bfs(root);
+   leftView(root);
+   // printBottomView(root); 
+
+}

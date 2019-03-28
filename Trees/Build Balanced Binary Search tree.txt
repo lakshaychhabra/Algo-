@@ -1,0 +1,63 @@
+#include <iostream>
+using namespace std;
+class tree{
+public:
+    int data;
+    tree* left;
+    tree* right;
+    tree(int d){
+        data = d;
+    }
+};
+
+tree* insertInBst(tree* root, int data){
+   // cout<<data;
+    if(root==NULL){
+        root = new tree(data);
+        return root;
+    }
+    if(data<=root->data){
+        root->left = insertInBst(root->left, data);
+    }
+    else{
+        root->right = insertInBst(root->right, data);
+    }
+    return root;
+
+}
+tree* insert(int *a, int s, int e){
+    if(s>e){
+        return NULL;
+    } 
+    int mid = (s+e)/2;
+    tree *root = new tree(a[mid]);
+    root->left = insert(a, s , mid - 1);
+    root->right = insert(a, mid + 1, e);
+    return root;
+}
+void print(tree* root){
+    if(root==NULL){
+        return;
+    }
+    cout<<root->data<<" ";
+    print(root->left);
+    print(root->right);
+}
+
+int main() {
+    int test;
+    cin>>test;
+    while(test--){
+    int n;
+    cin>>n;
+    int a[n];
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+    }
+    tree *root = insert(a,0,n-1);
+    print(root);
+    cout<<endl;
+    
+    }
+
+}

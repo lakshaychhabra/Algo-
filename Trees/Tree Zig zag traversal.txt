@@ -1,0 +1,108 @@
+#include <iostream>
+#include<climits>
+#include<queue>
+#include<stack>
+#include<vector>
+using namespace std;
+int x = 0;
+class tree{
+public:
+    int data;
+    tree* left;
+    tree* right;
+    tree(int d){
+        data = d;
+        left = NULL;
+        right = NULL;
+    }
+};
+
+
+tree* insert(tree* &root){
+    if(x==0){
+        int k;
+        cin>>k;
+        x++;
+        root = new tree(k);
+        root->left = insert(root->left);
+        root->right = insert(root->right);
+        return root;
+    }
+    string s;
+    cin>>s;
+    if(s=="true"){
+        int d;
+        cin>>d;
+        tree *newNode = new tree(d);
+        newNode->left = insert(newNode->left);
+        newNode->right = insert(newNode->right);
+        return newNode;
+    }
+    else{
+        return root;
+    }
+    return root;
+}
+
+int height(tree* root){
+    if(root==NULL){
+        return 0;
+    }
+    return 1 + max(height(root->left),  
+                height(root->right)); 
+}
+
+bool isBT(tree* root){
+    if(root == NULL){
+        return true;
+    }
+    int left,right;
+    left = height(root->left);
+    right = height(root->right);
+    if(abs(left - right) <= 1 && isBT(root->left)&& isBT(root->right) ){
+        return true;
+    }
+    return false;
+}
+void zigZag(tree *root){
+    stack<tree *> s1,s2;
+    s1.push(root);
+    while(!s1.empty() || !s2.empty()){
+        while(!s1.empty()){
+            tree* p = s1.top();
+            s1.pop();
+            cout<<p->data<<" ";
+            if(p->left){
+                s2.push(p->left);
+            }
+            if(p->right){
+                s2.push(p->right);
+            }
+        }
+        while(!s2.empty()){
+            tree* p = s2.top();
+            s2.pop();
+            cout<<p->data<<" ";
+
+             if(p->right){
+                s1.push(p->right);
+            }
+            
+            if(p->left){
+                s1.push(p->left);
+            }
+           
+        }
+    }
+}
+
+int main() {
+
+    tree *root1 = NULL;
+    insert(root1);
+    //print(root1);
+    //bfs(root1);
+    zigZag(root1);
+    //isBT(root1) ? cout<<"true":cout<<"false";
+    
+}

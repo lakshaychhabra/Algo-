@@ -1,0 +1,61 @@
+#include <iostream>
+#include<vector>
+#include<stack>
+using namespace std;
+int main() {
+    // First Find the Sieve Primes
+    vector<int> primes;
+    primes.push_back(2);
+    primes.push_back(3);
+    for(int i=5;i<=100000;i++){
+        int number = 0;
+        for(int j=2;j*j<=i;j++){
+            if(i%j==0){
+                number = 1;
+            }
+        }
+        if(!number){
+            primes.push_back(i);
+        }
+    }
+    //take inputs
+    int n,q,k;
+    cin>>n>>q;
+    stack<int> s1,s2,s3;
+    for(int i=0;i<n;i++){
+        cin>>k;
+        s1.push(k);
+    }
+    for(int i=0;i<q;i++){
+        if(s1.empty())
+           {
+               break;
+           } 
+           int currentPrime = primes[i];
+        while(!s1.empty()){
+            int element = s1.top();
+            s1.pop();
+            if(element%currentPrime==0){
+                s2.push(element);
+            }else{
+                s3.push(element);
+            }
+        }
+        while(!s2.empty()){
+            cout<<s2.top()<<"\n";
+            s2.pop();
+        }
+        // Shift contents of s3 to s1
+        s1 = s3;
+    // Empty s3 so we can add new elemnets
+        while(!s3.empty()){
+            s3.pop();
+        }
+    }//end of iteration loop
+    while(!s1.empty()){
+            cout<<s1.top()<<"\n";
+            s1.pop();
+        }
+
+
+}

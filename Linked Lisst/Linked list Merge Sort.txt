@@ -1,0 +1,111 @@
+#include <iostream>
+using namespace std;
+class node{
+  public:
+    int data;
+    node *next;
+    node(int d){
+        data = d;
+        next = NULL;
+    }
+};
+
+void insertAtTail(node*&head, int data){
+    if(head == NULL){
+        head = new node(data);
+        return;
+    }
+    node *tail = head;
+    while(tail->next!=NULL){
+        tail = tail->next;
+    }
+  //  cout<<"here12";
+    tail->next = new node(data);
+    return;
+
+}
+void buildList(node*&head, int size){
+    int n;
+    for(int i=0;i<size; i++){
+        //cout<<"here1";
+        cin>>n;
+        insertAtTail(head, n);
+    }
+
+}
+void print(node* head){
+    node* temp = head;
+    if(temp==NULL){
+        return;
+    }
+    
+    while(temp != NULL){
+        cout<<temp->data<<"->";
+        temp = temp->next;
+    }
+    cout<<endl;
+}
+
+node* middle(node*head){
+    if(head==NULL||head->next==NULL){
+        return head;
+    }
+    node *slow = head;
+    node *fast = head->next;
+
+    while(fast!=NULL&&fast->next!=NULL){
+        slow=slow->next;
+        fast = fast->next->next;
+    }
+    return slow;
+}
+node* merge(node*a, node*b){
+    if(a==NULL){
+        return b;
+    }
+    else if(b==NULL){
+        return a;
+    }
+    
+    node* c = NULL;
+    if(a->data <= b->data){
+       // cout<<"a"<<a->data<<" ";
+        c = a;
+        c->next = merge(a->next,b);
+    }
+    else{
+      //  cout<<"b"<<b->data<<" ";
+        c = b;
+         c->next = merge(a,b->next);
+    }
+    return c;
+
+}
+
+node* mergeSort(node*head){
+    if(head==NULL || head->next == NULL){
+        return head;
+    }
+    node *mid = middle(head);
+    node *a = head;
+    node *b = mid->next;
+    mid -> next = NULL;
+
+    a = mergeSort(a);
+    b = mergeSort(b);
+
+    node *c = merge(a,b);
+    return c;
+}
+int main() {
+    node* head = NULL;
+    int size, var;
+    int size1, var1;
+    cin>>size;
+    cin>>size1;
+    node * head1 = NULL;
+    buildList(head, size);
+    buildList(head1, size1);
+    head = merge(head, head1);
+    print(head);
+}

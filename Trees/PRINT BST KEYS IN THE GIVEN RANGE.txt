@@ -1,0 +1,74 @@
+#include <iostream>
+using namespace std;
+class tree{
+public:
+    int data;
+    tree* left;
+    tree* right;
+    tree(int d){
+        data = d;
+    }
+};
+tree* insertInBst(tree* root, int data){
+    if(root==NULL){
+        root = new tree(data);
+        return root;
+    }
+    if(data<=root->data){
+        root->left = insertInBst(root->left, data);
+    }
+    else{
+        root->right = insertInBst(root->right, data);
+    }
+    return root;
+
+}
+tree* insert(){
+     int n;
+    cin>>n;
+    tree *root = NULL; 
+    int data;
+    for(int i=0;i<n;i++){
+        cin>>data;
+        root = insertInBst(root,data);
+    }
+    return root;
+   
+}
+void print(tree* root){
+    if(root==NULL){
+        return;
+    }
+    cout<<root->data<<" ";
+    print(root->left);
+    print(root->right);
+    
+}
+void printL(tree* root, int start, int end){
+    if(root==NULL){
+        return;
+    }
+    
+    printL(root->left,start,end);
+    if(start<=root->data && root->data <= end)
+        cout<<root->data<<" ";
+    printL(root->right,start,end);
+    
+}
+
+int main() {
+    int test;
+    cin>>test;
+    while(test--){
+        tree* root = insert();
+        int start,end;
+        cin>>start>>end;
+        cout<<"# Preorder : ";
+        print(root);
+        cout<<endl;
+        cout<<"# Nodes within range are : ";
+        printL(root,start,end);
+        cout<<endl;
+    }
+}
+
