@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+#define ll long long int
+using namespace std;
+int checkGap(ll a[], ll mid, ll k, ll n){
+    int cow = 1;
+    int current = a[0];
+    
+    for(int i=1;i<n;i++){
+    
+        if(a[i] - current >= mid){
+            cow++;
+            if(cow == k){
+                return 1;
+            }
+            current = a[i];
+
+        }
+     }
+            return 0;
+}
+int main() {
+   long long int n,k;
+   cin>>n>>k;
+    long long int a[n];
+   for(int i=0;i<n;i++){
+       cin>>a[i];
+   }
+   sort(a,a+n);
+    ll s = a[0] , e=a[n-1];
+    ll mid;
+    while(s+1<e){
+        mid = (s+e)/2;
+        
+        if(checkGap(a, mid, k, n)){
+            
+            s = mid;
+        }
+        else{
+           
+            e = mid;
+        }
+       
+    }
+    cout<<s;
+}

@@ -1,0 +1,29 @@
+#include<iostream>
+#include<algorithm>
+#include<vector>
+using namespace std;
+int main() {
+   int n;
+  cin>>n;
+  vector<int> a;
+  int k = 0;
+  int m;
+  for(int i = 0; i<n; i++){
+    cin>>m;
+    a.push_back(m);
+  }
+// sort(a.begin(), a.end());
+ for(int j = 0; j<n-1;j++){
+   for(int i=0;i<n-1-j;i++){
+     if(a[i]>a[i+1]){
+       swap(a[i],a[i+1]);
+     }
+   }
+   
+ }
+ 
+    for(auto i : a){
+    cout<<i<<endl;
+  }
+	return 0;
+}

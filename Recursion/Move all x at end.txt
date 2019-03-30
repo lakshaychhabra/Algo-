@@ -1,0 +1,29 @@
+#include <iostream>
+#include<string>
+using namespace std;
+int count=0;
+string out;
+void removeX(string a, int i){
+if(a[i]=='\0'){
+    int p = a.size();
+    cout<<out;
+    for(int k=0;k<count;k++){
+        cout<<'x';
+    }
+    return;
+}
+    if(a[i]=='x'){
+        count++;
+}
+else{
+    out += a[i];
+}
+removeX(a,i+1);
+
+}
+int main() {
+   string a;
+   cin>>a;
+   removeX(a,0);
+
+}

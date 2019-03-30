@@ -1,0 +1,19 @@
+#include <iostream>
+#define ll long long int
+using namespace std;
+int main() {
+    ll a,b,c;
+    cin>>a>>b>>c;
+    // int d;
+    // d = pow(a,b);
+    // cout<<d%c;
+    ll res= 1;
+    while(b>0){
+        if(b&1){
+            res = (res * a)%c;    
+        }
+        a = (a*a)%c;
+        b = b>>1;
+    }
+    cout<<res;
+}

@@ -1,0 +1,15 @@
+#include <iostream>
+using namespace std;
+int main() {
+    int x,y;
+    cin>>x>>y;
+    int mx = 0;
+    for(int i = x;i<=y;i++){
+        for(int j = i;j<=y;j++){
+            int ans = i^j;
+           
+            mx = max(ans,mx);
+        }
+    }
+    cout<<mx;
+}

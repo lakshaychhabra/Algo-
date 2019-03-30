@@ -1,0 +1,34 @@
+#include<bits/stdc++.h>
+using namespace std;
+//PRIME SIEVE OPTIMISATIONS
+long long int n=5000003;
+bitset<100000000> p;
+vector<long long int>prime;
+void primeseive(long long int n,long long int h)
+{
+    
+    
+    
+    for(long long int i=2;i<=100000000;i++)
+    {
+        if(p[i]==0)
+        {
+            for(long long int j=i*i;j<=100000000;j+=i)//vaise hi i square odd hai usmai odd add karenge toh even hoga toh usse acha even hi add kare taaki odd hi chech karne pade
+            p[j]=1;
+        }
+    }
+    
+    
+    for(long long int i=2;i<=100000000;i++)
+        if(p[i]==0)
+        prime.push_back(i);
+    cout<<prime[h-1];
+}
+int main() {
+
+
+    long long int h;
+    cin>>h;
+primeseive(5000000,h);
+
+}

@@ -1,0 +1,22 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+void strToInt(string ch, int i, int k){
+    if(ch[i+1]=='\0'){
+        cout<<k;
+        return;
+    }
+    k = k * 10 + int(ch[i+1] - '0');
+    strToInt(ch, i+1, k);
+
+}
+int main() {
+    string s="1234";
+    cin>>s;
+    int k ;
+    k =   (s[0]-'0');
+    strToInt(s, 0, k);
+
+    //cout<<k;
+}

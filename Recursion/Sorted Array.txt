@@ -1,0 +1,32 @@
+#include <iostream>
+using namespace std;
+#define ll long long int
+bool isSorted(ll *a, ll n){//, int i){
+    // if(i==n-1){
+    //     return true;
+    // }
+    // if(a[i]>a[i+1]){
+
+    //     return false;
+    // }
+    // isSorted(a,n,i+1);
+  //approach 2
+
+  if(n==1){
+      return true;
+  }
+  if(a[n]<a[n-1]){
+      return false;
+  }
+  isSorted(a,n-1);
+
+}
+int main() {
+    ll n;
+    cin>>n;
+    ll a[n];
+    for(ll i=0;i<n;i++){
+        cin>>a[i];
+    }
+    isSorted(a,n)?cout<<"true":cout<<"false";
+}

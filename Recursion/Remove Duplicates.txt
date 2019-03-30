@@ -1,0 +1,31 @@
+#include <iostream>
+using namespace std;
+void dupl(string s, int i){
+    if(s[i] == '\0'){
+        
+         cout<<s;
+        return;
+    }
+   
+    if(s[i] == s[i+1]){
+        int k = i;
+       
+        while(k<s.size()){
+           
+             s[k] = s[k+1];
+             k++;
+        }
+        i = i-1;
+        
+    }
+    dupl(s,i+1);
+}
+int main() {
+    // cout<<"Hello World!";
+        string s;
+        cin>>s;
+        //cout<<s.size();
+        dupl(s, 0);
+
+
+}

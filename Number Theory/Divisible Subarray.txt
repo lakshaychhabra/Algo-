@@ -1,0 +1,58 @@
+#include <iostream>
+#include<cstring>
+#define ll long long int
+using namespace std;
+// Method Brute Force
+// ll subarraycheck(ll a[], ll n){
+// ll count = 0,sum;
+
+//     for(ll i = 0; i<n;i++){
+//             sum = a[i];
+            
+//         for(ll j = i; j<n;j++){
+
+//              if(sum % n == 0){
+//                 count++;
+//                 //cout<<"count"<<count;
+//             }
+             
+//            //  cout<<sum<<" ";
+//              sum  += a[j];
+           
+//         }
+//     }
+//     return count;
+// }
+
+ll a[1000000];
+ll prefixSum[1000000];
+
+int main() {
+    int test;
+    cin>>test;
+    while(test--){
+        ll n;
+        cin>>n;
+       ll sum = 0;
+       memset(prefixSum,0,sizeof(prefixSum));
+       prefixSum[0]= 1;
+        for(ll i=0;i<n;i++)
+            {
+                cin>>a[i];
+                sum += a[i];
+                sum %= n;
+                sum = (sum+n)%n; // tomake neagative as positive
+                prefixSum[sum]++;
+                }
+                ll ans = 0;
+                for(int i=0;i<n;i++){
+                    ll no = prefixSum[i];
+                    if(no!=0){
+                    ans += (no*(no-1))/2;
+                }
+                }
+
+        // ll b = subarraycheck(a,n);
+        cout<<ans<<endl;
+    }//while ends
+}

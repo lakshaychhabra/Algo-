@@ -1,0 +1,17 @@
+#include <iostream>
+using namespace std;
+int main() {
+    char c;
+    char b = 123;
+    cin>>c;
+    if(c>=65 && c<=94){
+        cout<<"UPPERCASE";
+    }
+    else if(c>=95 && c <=122){
+        cout<<"lowercase";
+    }
+    else{
+        cout<<"Invalid";
+    }
+   
+}

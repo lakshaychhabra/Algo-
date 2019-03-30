@@ -1,0 +1,21 @@
+#include <iostream>
+using namespace std;
+int setBitCount(int n){
+    int ans=0;
+    while(n>0){
+        ans++;
+        n = n&(n-1);
+    }
+    return ans;
+}
+int main() {
+   int test;
+   cin>>test;
+   while(test--){
+       int r1;
+       cin>>r1;
+       int count = 0;
+      count = setBitCount(r1);
+       cout<<count<<endl;
+   }
+}

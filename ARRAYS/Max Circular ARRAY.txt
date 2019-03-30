@@ -1,0 +1,75 @@
+#include<iostream>
+
+using namespace std;
+int kadane(int a[], int n);
+// int kadane(int a[], int n){
+
+//     int cs = 0, ms = 0; 
+//       for(int i=0;i<n; i++){
+        
+//         cs = cs + a[i];
+//         if(cs<0){
+//           cs = 0;
+//         }
+//         ms= max(cs,ms);
+//       }
+//       // cout<<"kadane";
+//       return ms;
+// }
+// int maxSum(int a[], int n){
+//   int maxKadane,maxWrap;
+//   maxKadane = kadane(a,n); 
+//   maxWrap = 0;
+//   for(int i=0;i<n;i++){
+//     maxWrap += a[i];
+//     a[i] = -a[i];
+//   }
+//   maxWrap = maxWrap + kadane(a,n);
+//   return max(maxWrap, maxKadane);
+// }
+int maxCircularSum(int a[], int n) 
+{ 
+   
+   int max_kadane = kadane(a, n); 
+  
+   
+   int max_wrap = 0, i; 
+   for (i=0; i<n; i++) 
+   { 
+        max_wrap += a[i]; // Calculate array-sum 
+        a[i] = -a[i];  // invert the array (change sign) 
+   } 
+  
+   max_wrap = max_wrap + kadane(a, n); 
+  
+   return (max_wrap > max_kadane)? max_wrap: max_kadane; 
+} 
+int kadane(int a[], int n) 
+{ 
+    int max_so_far = 0, max_ending_here = 0; 
+    int i; 
+    for (i = 0; i < n; i++) 
+    { 
+        max_ending_here = max_ending_here + a[i]; 
+        if (max_ending_here < 0) 
+            max_ending_here = 0; 
+        if (max_so_far < max_ending_here) 
+            max_so_far = max_ending_here; 
+    } 
+    return max_so_far; 
+} 
+int main() {
+    int t,n;
+    cin>>t;
+    while(t--){
+      cin>>n;
+      int a[n];
+      for(int i=0;i<n; i++){
+        cin>>a[i];
+      }
+      int result = maxCircularSum(a,n);
+     cout<<result<<endl;
+    
+    }//while ends
+	return 0;
+}

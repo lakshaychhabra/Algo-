@@ -1,0 +1,47 @@
+#include <iostream>
+#include<vector>
+using namespace std;
+
+int convertToNum(int a[],int n){
+    int num =0 ;
+    for(int i=0;i<n;i++){
+        num = num*10 + a[i];
+    }
+    return num;
+}
+vector<int> convertToArray(int num){
+    int i = num;
+    vector<int> b;
+    while(num>0){
+        i = num%10;
+        b.push_back(i);
+        num = num/10; 
+    }
+    return b;
+}
+int main() {
+    //Inputs
+   int n;
+   cin>>n;
+   int a[n];
+   for(int i = 0 ; i<n;i++){
+       cin>>a[i];
+    }
+    int m;
+   cin>>m;
+   int b[m];
+   for(int i = 0 ; i<m;i++){
+       cin>>b[i];
+    }
+    int num1,num2;
+    num1 = convertToNum(a,n);
+    num2 = convertToNum(b,m);
+    int output = num1+num2;
+   // cout<<output<<" ";
+    vector<int> c;
+    c = convertToArray(output);
+    for(int i = c.size()-1 ; i>=0;i--){
+       cout<<c[i]<<", ";
+    }
+    cout<<"END";
+   }

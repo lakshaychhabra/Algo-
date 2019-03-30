@@ -1,0 +1,55 @@
+#include<iostream>
+#include<vector>
+#define ll long long int
+
+using namespace std;
+ll a[1000000]={0};
+void prime(){
+    a[0] = a[1] = 0;
+    a[2] = 1;
+    
+    for(ll i=3;i<=1000000;i+=2){
+        a[i] = 1;
+    }
+    
+    for(ll i=3;i<=1000000;i+=2){
+        if(a[i]){
+            for(ll j = i*i; j<=1000000; j+=2*i){
+                a[j] = 0;
+            }
+        }
+    }
+    return;
+}
+
+
+
+void check(ll n, ll n2){
+   
+    // vector<int> v;
+    ll count = 0;
+    for(ll i=n;i<=n2;i++){
+    if(a[i]){
+      count++;
+      //  v.push_back(i);
+      
+      
+         }
+       
+    }
+    cout<<count<<"\n";//v[n-1]<<'\n';
+  
+    
+}
+int main() {
+    int test;
+     prime();
+    cin>>test;
+    while(test--){
+        ll n, n2;
+        
+        cin>>n>>n2;
+        check(n,n2);
+    }
+	return 0;
+}

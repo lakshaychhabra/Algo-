@@ -1,0 +1,38 @@
+#include <iostream>
+using namespace std;
+int main() {
+    int n;
+    cin>>n;
+    int a[n];
+    for(int i=0;i<n;i++){
+        cin>>a[i];
+    }
+
+
+    int b[64] = {0};
+    for(int i=0;i<n;i++){
+        int j=0;
+        int n0 = a[i];
+       // cout<<n0<<" ";
+        while(n0>0){
+            b[j] += (n0&1);
+         //   cout<<b[j]<<" ";
+            j++;
+            n0 = n0>>1;
+        }
+        // cout<<endl;
+    }
+   
+
+
+    //Taking Mode
+    int p=1,ans = 0;
+    for(int i=0;i<64;i++){
+        b[i] %= 3;
+        ans += b[i] * p;
+        p = p<<1;
+    }
+    cout<<ans;
+
+    return 0;
+}

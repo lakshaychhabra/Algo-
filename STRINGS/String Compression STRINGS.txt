@@ -1,0 +1,23 @@
+#include <iostream>
+#include<map>
+#include<string>
+using namespace std;
+int main() {
+    string a;
+  //  map<char,int> m;
+  int count = 0;
+    cin>>a;
+    for(int i = 0; i<a.size(); i++){
+      int count = 1; 
+        while (i < a.size() - 1 && a[i] == a[i + 1]) { 
+            count++; 
+            i++; 
+        } 
+  
+        // Print character and its count 
+        cout << a[i] << count; 
+    } 
+       
+ 
+    
+}

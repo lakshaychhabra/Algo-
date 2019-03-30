@@ -1,0 +1,33 @@
+#include <iostream>
+#include<vector>
+#include<string>
+using namespace std;
+int count;
+vector<string> a;
+void subsequences(char *inp, char *out, int i, int j){
+    if(inp[i] == '\0'){
+        out[j] = '\0';
+        count++;
+        a.push_back(out);
+      //  cout<<out<<endl;
+        return;
+    }
+    // rec Case
+
+    out[j] = inp[i];
+    subsequences(inp, out, i+1, j+1);
+    subsequences(inp, out, i+1, j);
+}
+
+int main() {
+    char inp[1000];
+    cin>>inp;
+    char out[1000];
+    subsequences(inp,out,0,0);
+    for(int i = a.size()-1; i>=0;i--){
+        cout<<a[i]<<"\n";
+    }
+    cout<<count;
+
+
+}

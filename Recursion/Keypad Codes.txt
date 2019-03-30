@@ -1,0 +1,32 @@
+#include <iostream>
+#include<string>
+using namespace std;
+string table[] = { " ", "abc", "def", "ghi", "jkl" , "mno", "pqrs" , "tuv", "wx", "yz" };
+
+int count = 0;
+
+void printKeys(char *inp, char *out, int i, int j){
+    // Base case
+    if(inp[i] == '\0'){
+        out[j] = '\0';
+        count++;
+        cout<<out<<"\n";
+        return;
+    }
+    //rec
+    int digit = inp[i] - '0';
+  
+    for(int k=0; table[digit][k] != '\0'; k++){
+        out[j]=table[digit][k];
+        printKeys(inp, out, i+1,j+1);
+
+    }
+}
+
+int main() {
+    char inp[10000],out[10000];
+    cin>>inp;
+    
+    printKeys(inp, out, 0, 0);
+    cout<<count;
+}

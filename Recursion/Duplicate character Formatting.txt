@@ -1,0 +1,23 @@
+#include <iostream>
+#include <string>
+using namespace std;
+void rec(string s, int i){
+    //basecondtion
+    if(s[i]=='\0'){
+     //   cout<<s;
+        return;
+    }
+  //  rec(s,i+1;)
+   cout<<s[i];  
+    if(s[i]==s[i+1]){
+        cout<<"*";
+    }
+ rec(s,i+1);
+
+}
+int main() {
+    // cout<<"Hello World!";
+    string s;
+    cin>>s;
+    rec(s, 0);
+}
