@@ -1,0 +1,83 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class Graphs{
+    map<int,list<pair<int,int>>> m;
+    public:
+    void addEdge(int u, int v, int dist, bool bidir = true){
+        m[u].push_back(make_pair(v,dist));
+        if(bidir){
+            m[v].push_back(make_pair(u,dist));
+        }
+    }
+
+    void printAdj(){
+        for(auto i :m){
+            cout<<i.first<<" ";
+            for(auto l: i.second){
+                cout<<l.first<<" "<<l.second;
+            }
+            cout<<"\n";
+        }
+    }
+
+    void dijkstraSSSP(int src){
+        map<int, int> dist;
+        for(auto j : m){
+            dist[j.first] = INT_MAX;
+        }
+        //Make a set to find out a node with min distance
+        set<pair<int,int>> s;
+        dist[src] = 0;
+        s.insert(make_pair(0,src));
+        while(!s.empty()){
+            //find the pair at front
+            auto p = *(s.begin());
+            int node = p.second;
+            int nodeDist = p.first;
+            s.erase(s.begin());
+
+            //Iterate over neighbour of current node
+            for(auto childPair : m[node]){
+                if(nodeDist + childPair.second < dist[childPair.first]){
+                    //In set updation is not possible so remove old and add new 
+                    int dest = childPair.first;
+                    auto f = s.find(make_pair(dist[dest], dest));
+                    if(f!=s.end()){
+                        s.erase(f);
+                    }
+                    //Insert new Pair
+                    dist[dest] = nodeDist + childPair.second;
+                    s.insert(make_pair(dist[dest], dest));
+                }
+            }
+        }
+        //Printing distances
+        for(auto d : dist){
+            if(d.first == src){
+
+            }else{
+                if(d.second == INT_MAX){
+                    d.second = -1;
+                }
+            cout<<d.second;
+            cout<<"\n";
+            }
+        }
+    }
+};
+int main() {
+   int test, V, E;
+   cin>>test;
+   while(test--){
+       Graphs g;
+       cin>>V>>E;
+       int vertex,edge,weight,src;
+       for(int i=0;i<E;i++){
+           cin>>vertex>>edge>>weight;
+           g.addEdge(vertex,edge,weight);
+       }
+       cin>>src;
+       g.dijkstraSSSP(src);
+   }
+}

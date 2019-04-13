@@ -1,0 +1,91 @@
+#include <bits/stdc++.h>
+using namespace std;
+//Program for Single source shortest Path by bfs and normal bfs
+class Graph{
+    map<int,list<int>> adjlist;
+
+public:
+ void addEdge(int u,int v, bool bidir = true){
+     adjlist[u].push_back(v);
+     if(bidir){
+         adjlist[v].push_back(u);
+     }
+ }
+ void print(){
+     for(auto i : adjlist){
+         cout<<i.first<<" -- > ";
+         for(auto n : i.second){
+             cout<<n<<", ";
+         }
+         cout<<"\n";
+     }
+ }
+
+ void bfs(int src){
+     queue<int> q;
+     map<int,bool> visited;
+     
+     q.push(src);
+     visited[src] = true;
+     while(!q.empty()){
+         int node = q.front();
+         cout<<node<<", ";
+         q.pop();
+
+         for(auto i : adjlist[node]){
+             if(!visited[i]){
+                 q.push(i);
+                 visited[i]=true;
+             }
+         }
+     }
+ }
+
+ void bfsSSSP(int src){
+     queue<int> q;
+     map<int,int> distance;
+     map<int, int> parent;
+
+    for(auto i : adjlist ){
+        distance[i.first] = INT_MAX;
+    }
+    q.push(src);
+    distance[src] = 0;
+    parent[src] = src; // to keep track on how bfs went
+    while(!q.empty()){
+        int node = q.front();
+        cout<<node<<" ";
+        q.pop();
+        for(auto neigh : adjlist[node]){
+            if(distance[neigh] == INT_MAX){
+                q.push(neigh);
+                distance[neigh] = distance[node] + 1;
+                parent[neigh] = node;
+            }
+        }
+    }
+    //Printing Values
+    for(auto i : adjlist){
+        int node = i.first;
+        cout<<"Dist of node "<< node << " from "<< src << " is "<<distance[node]<< " \n";
+    }
+    for(auto i : parent){
+        cout<<i;
+    }
+ }
+};
+int main() {
+	Graph g;
+    g.addEdge(1,2);
+    g.addEdge(1,3);
+    g.addEdge(1,4);
+    g.addEdge(2,3);
+    g.addEdge(2,4);
+
+    g.print();
+    cout<<endl;
+    g.bfs(3);
+    cout<<"\n\n";
+    g.bfsSSSP(1);
+	return 0;
+}

@@ -1,0 +1,29 @@
+#include<iostream>
+#include<cstring>
+#include<vector>
+#include<algorithm>
+using namespace std;
+//vector<string>vect;
+void permute(string,string,int);
+int main() {
+  string str;
+  cin>>str;
+  string ostr;
+  ostr=str;
+  permute(str,ostr,0);
+
+	return 0;
+}
+void permute(string str,string ostr,int i)
+{
+  if(ostr[i]=='\0'){
+    if(ostr<str)
+    cout<<ostr<<endl;
+    return;
+  }
+  for(int j=i;ostr[j]!='\0';j++)
+  {
+    swap(ostr[i],ostr[j]);
+    permute(str,ostr,i+1);
+  }
+}

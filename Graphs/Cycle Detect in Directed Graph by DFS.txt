@@ -1,0 +1,61 @@
+#include <bits/stdc++.h>
+using namespace std;
+class Graphs{
+    map<int,list<int>> adjList;
+
+public: 
+    void addEdge(int u, int v,bool isBidirectional = false){
+        adjList[u].push_back(v);
+        if(isBidirectional){
+            adjList[v].push_back(u);
+        }
+    }
+
+  bool detectcycleHelper(int node, map<int,bool> &visited, map<int,bool> &inStack){
+
+      visited[node] = true;
+      inStack[node] = true;
+
+      for(int neighbour : adjList[node]){
+          if(!visited[neighbour] && detectcycleHelper(neighbour, visited, inStack) || inStack[neighbour]){
+              return true;
+          }
+      }
+          inStack[node] = false;
+      return false;
+
+  }
+  bool detectcycle(){
+      map<int,bool> visited, inStack;
+      for(auto i : adjList){
+          int node = i.first;
+          if(!visited[node]){
+              bool isCyclic = detectcycleHelper(node, visited, inStack);
+              if(isCyclic){
+                  return true;
+              }
+          }
+      }
+      return false;
+  }
+
+};
+int main() {
+    Graphs g;
+    g.addEdge(0,1);
+    g.addEdge(0,4);
+    g.addEdge(2,4);
+    g.addEdge(1,2);
+    g.addEdge(4,1);
+    g.addEdge(4,3);
+    g.addEdge(3,5);
+
+    if(g.detectcycle()){
+        cout<<"Its a cyclic Graph";
+    }
+    else{
+        cout<<"Not Cyclic";
+    }
+   // g.dfs(0);
+
+}

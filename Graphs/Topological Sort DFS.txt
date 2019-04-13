@@ -1,0 +1,57 @@
+#include <bits/stdc++.h>
+using namespace std;
+class Graphs{
+    map<int,list<int>> adjList;
+
+public: 
+    void addEdge(int u, int v,bool isBidirectional = true){
+        adjList[u].push_back(v);
+        if(isBidirectional){
+            adjList[v].push_back(u);
+        }
+    }
+    void dfsHelper(int node, map<int, bool> &visited, list<int> &ordering){
+        visited[node] = true;
+        cout<<node<<" ";
+        for(int i : adjList[node]){
+            if(!visited[i]){
+                dfsHelper(i, visited, ordering);
+            }
+        }
+        //work for topological Sort
+        ordering.push_front(node);
+
+    }
+    void dfs(int src){
+        map<int,bool> visited;
+        list<int> ordering;
+        for(auto i : adjList){
+            int node = i.first;
+            if(!visited[node]){
+                dfsHelper(node,visited,ordering);
+            }
+        }
+        cout<<"\n";
+        for(auto i : ordering){
+            cout<<i<<"-->";
+        }
+    }
+
+};
+int main() {
+    Graphs g;
+    g.addEdge(0,1);
+    g.addEdge(0,4);
+    g.addEdge(2,4);
+    g.addEdge(2,1);
+    g.addEdge(2,3);
+    g.addEdge(3,4);
+    g.addEdge(3,5);
+
+    g.addEdge(6,7);
+    g.addEdge(7,8);
+
+    g.addEdge(9,10);
+    g.dfs(0);
+
+}

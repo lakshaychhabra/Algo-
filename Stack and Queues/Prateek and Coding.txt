@@ -1,0 +1,25 @@
+#include <iostream>
+#include<stack>
+using namespace std;
+int main() {
+    stack<int> s;
+    int a[100000];
+    int queriesNumber,type,cost;
+    cin>>queriesNumber;
+    while(queriesNumber--){
+
+        cin>>type;
+        if(type == 2){
+            cin>>cost;
+            s.push(cost);
+        }else{
+            if(!s.empty()){
+            cout<<s.top()<<"\n";
+            s.pop();
+            }else{
+                cout<<"No Code \n";
+            }
+        }
+    }
+
+}

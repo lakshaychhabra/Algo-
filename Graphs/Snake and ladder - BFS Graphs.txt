@@ -1,0 +1,116 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class Graph{
+
+    map<int,list<int>> adjlist;
+
+public:
+int n = 200;
+int paths[300] = {0};
+ void addEdge(int u,int v, bool bidir = true){
+     adjlist[u].push_back(v);
+     if(bidir){
+         adjlist[v].push_back(u);
+     }
+ }
+ void print(){
+     for(auto i : adjlist){
+         cout<<i.first<<" -- > ";
+         for(auto n : i.second){
+             cout<<n<<", ";
+         }
+         cout<<"\n";
+     }
+ }
+
+ void bfs(int src){
+     queue<int> q;
+     map<int,bool> visited;
+     
+     q.push(src);
+     visited[src] = true;
+     while(!q.empty()){
+         int node = q.front();
+         cout<<node<<", ";
+         q.pop();
+
+         for(auto i : adjlist[node]){
+             if(!visited[i]){
+                 q.push(i);
+                 visited[i]=true;
+             }
+         }
+     }
+ }
+
+//SNAKE AND LADDER
+int bfsSSSP(int src, int destination){
+    int distance[destination + 1];
+    for(int i = 0; i<=destination ; i++){
+        distance[i] = INT_MAX;
+    }
+
+    distance[src] = 0;
+    vector<int> parent;
+
+		queue<int> q;
+		q.push(src);
+		parent.push_back(src);
+        while(!q.empty()){
+			int current = q.front();
+			q.pop();
+			
+			for(auto n = adjlist[current].begin(); n != adjlist[current].end(); n++)
+			{
+				
+				if(distance[*n] == INT_MAX) // If unvisited
+				{
+					q.push(*n);
+					distance[*n] = distance[current] + 1;
+				}
+			}
+		}
+		return distance[destination] == INT_MAX ? -1 : distance[destination];
+    }
+};
+int main() {
+	
+   int test;
+   cin>>test;
+   while(test--){
+       Graph g;
+       int n,l,s;
+       cin>>n>>l>>s;
+       g.n = n;
+       for(int i = 0 ; i< l ; i++){
+           int val1,val2;
+           cin>>val1>>val2;
+           g.paths[val1] = val2;
+       }
+      for(int i = 0 ; i< s ; i++){
+           int val1,val2;
+           cin>>val1>>val2;
+           g.paths[val1] = val2;
+       }
+
+    //making g edges
+    int u,dice,v;
+    for(u=1;u<=n;u++){
+        for(dice=1;dice<=6;dice++){
+            if(g.paths[u+dice]==0){
+                 v = u + dice;
+            }
+            else{
+                v= g.paths[u+dice];
+            }
+            g.addEdge(u,v,false);
+        }
+    }
+    cout<<g.bfsSSSP(1,n)<<endl;
+
+   }
+
+   
+	return 0;
+}
