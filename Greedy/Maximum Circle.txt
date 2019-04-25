@@ -1,0 +1,39 @@
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+class Circle
+{
+public:
+    long int center;
+    long int radius;
+};
+
+bool comparator(Circle a,Circle b)
+{ return (a.center+a.radius)<(b.center+b.radius); }
+
+int main()
+{
+    unsigned int N;
+    cin>>N;
+    Circle arr[N];
+    for(int i=0;i<N;i++)
+    {
+        cin>>arr[i].center>>arr[i].radius;
+    }
+    sort(arr,arr+N,comparator);
+    int C=1;
+    int end=arr[0].center+arr[0].radius;
+    for(int i=1;i<N;i++)
+    {
+        int srt=arr[i].center-arr[i].radius;
+        if(end<=srt)
+        {
+            C++;
+            end=arr[i].center+arr[i].radius;
+        }
+    }
+   
+    cout<<(N-C)<<endl;
+    return 0;
+}
