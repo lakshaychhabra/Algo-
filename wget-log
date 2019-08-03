@@ -1,6 +1,0 @@
---2019-07-13 17:21:09--  https://drive.google.com/uc?export=download
-Resolving drive.google.com (drive.google.com)... 172.217.166.46
-Connecting to drive.google.com (drive.google.com)|172.217.166.46|:443... connected.
-HTTP request sent, awaiting response... 400 Bad Request
-2019-07-13 17:21:09 ERROR 400: Bad Request.
-
